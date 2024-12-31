@@ -2,6 +2,7 @@
 .scons-cache/
 *.os
 bin/
+src/gen/
 
 # SConstruct
 .sconf_temp
