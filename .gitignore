@@ -17,6 +17,4 @@ bin/
 compile_commands.json
 
 # Demo project
-demo/addons/**/**
-!demo/addons/**/*.gdextension*
-demo/.godot
+demo/
