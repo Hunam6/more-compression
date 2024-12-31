@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="MoreCompression" inherits="Object" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+    <brief_description>
+        More compression algorithms than the built-in ones.
+    </brief_description>
+    <description>
+    </description>
+    <tutorials>
+    </tutorials>
+    <methods>
+        <method name="compress" qualifiers="static">
+            <return type="PackedByteArray"/>
+            <param index="0" name="bytes" type="PackedByteArray"/>
+            <param index="1" name="mode" type="int" enum="CompressionMode"/>
+            <description>
+                Returns a new [PackedByteArray] with the data compressed using the specified [param mode].
+                Works the same way as [method PackedByteArray.compress].
+            </description>
+        </method>
+        <method name="decompress" qualifiers="static">
+            <return type="PackedByteArray"/>
+            <param index="0" name="bytes" type="PackedByteArray"/>
+            <param index="1" name="buffer_size" type="int"/>
+            <param index="2" name="mode" type="int" enum="CompressionMode"/>
+            <description>
+                Returns a new [PackedByteArray] with the data decompressed using the specified [param mode]. Set [param buffer_size] to the size of the uncompressed data.
+                Works the same way as [method PackedByteArray.decompress].
+            </description>
+        </method>
+    </methods>
+    <constants>
+        <constant name="COMPRESSION_LZ4" value="0" enum="CompressionMode">
+            Uses the [url=https://lz4.org]LZ4[/url] compression method.
+        </constant>
+    </constants>
+</class>
