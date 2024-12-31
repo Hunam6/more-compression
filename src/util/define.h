@@ -6,8 +6,8 @@
   public:                                                                                                              \
     name();                                                                                                            \
     ~name() override;                                                                                                  \
-    static void initialize();                                                                                          \
-    static void terminate();                                                                                           \
+    static void initialize_singleton();                                                                                \
+    static void terminate_singleton();                                                                                 \
     static name *get_singleton();
 
 #define DEFINE_SINGLETON(name)                                                                                         \
@@ -25,14 +25,14 @@
         variable = nullptr;                                                                                            \
     }                                                                                                                  \
                                                                                                                        \
-    void name::initialize()                                                                                            \
+    void name::initialize_singleton()                                                                                  \
     {                                                                                                                  \
         ClassDB::register_class<name>();                                                                               \
         variable = memnew(name);                                                                                       \
         Engine::get_singleton()->register_singleton(#name, name::get_singleton());                                     \
     }                                                                                                                  \
                                                                                                                        \
-    void name::terminate()                                                                                             \
+    void name::terminate_singleton()                                                                                   \
     {                                                                                                                  \
         Engine::get_singleton()->unregister_singleton(#name);                                                          \
         memdelete(variable);                                                                                           \

@@ -1,47 +1,59 @@
 #!/usr/bin/env python
 import os
-from glob import glob
-from pathlib import Path
+import sys
 
-# TODO: Do not copy environment after godot-cpp/test is updated <https://github.com/godotengine/godot-cpp/blob/master/test/SConstruct>.
-env = SConscript("godot-cpp/SConstruct")
+libname = "more-compression"
+projectdir = "demo"
 
-# Add source files.
+localEnv = Environment(tools=["default"], PLATFORM="")
+
+customs = ["custom.py"]
+customs = [os.path.abspath(path) for path in customs]
+
+opts = Variables(customs, ARGUMENTS)
+opts.Update(localEnv)
+
+Help(opts.GenerateHelpText(localEnv))
+
+env = localEnv.Clone()
+
+submodule_initialized = False
+dir_name = 'godot-cpp'
+if os.path.isdir(dir_name):
+    if os.listdir(dir_name):
+        submodule_initialized = True
+
+if not submodule_initialized:
+    print("""godot-cpp is not available within this folder, as Git submodules haven't been initialized.
+Run the following command to download godot-cpp:
+
+    git submodule update --init --recursive""", file=sys.stderr)
+    sys.exit(1)
+
+env = SConscript("godot-cpp/SConstruct", {"env": env, "customs": customs})
+
 env.Append(CPPPATH=["src/"])
 sources = Glob("src/*.cpp")
 
-# Find gdextension path even if the directory or extension is renamed (e.g. project/addons/example/example.gdextension).
-(extension_path,) = glob("*.gdextension")
+if env["target"] in ["editor", "template_debug"]:
+    try:
+        doc_data = env.GodotCPPDocData("src/gen/doc_data.gen.cpp", source=Glob("doc_classes/*.xml"))
+        sources.append(doc_data)
+    except AttributeError:
+        print("Not including class reference as we're targeting a pre-4.3 baseline.")
 
-# Get the project name from the gdextension file (e.g. example).
-project_name = Path(extension_path).stem
+file = "{}{}{}".format(libname, env["suffix"], env["SHLIBSUFFIX"])
 
-scons_cache_path = os.environ.get("SCONS_CACHE")
-if scons_cache_path != None:
-    CacheDir(scons_cache_path)
-    print("Scons cache enabled... (path: '" + scons_cache_path + "')")
+if env["platform"] == "macos" or env["platform"] == "ios":
+    file = "{}.{}.{}".format(libname, env["platform"], env["target"])
 
-# Create the library target (e.g. libexample.linux.debug.x86_64.so).
-debug_or_release = "release" if env["target"] == "template_release" else "debug"
-if env["platform"] == "macos":
-    library = env.SharedLibrary(
-        "bin/{0}.{1}.{2}.framework/{0}.{1}.{2}".format(
-            project_name,
-            env["platform"],
-            debug_or_release,
-        ),
-        source=sources,
-    )
-else:
-    library = env.SharedLibrary(
-        "bin/{}.{}.{}.{}{}".format(
-            project_name,
-            env["platform"],
-            debug_or_release,
-            env["arch"],
-            env["SHLIBSUFFIX"],
-        ),
-        source=sources,
-    )
+libraryfile = "bin/{}".format(file)
+library = env.SharedLibrary(
+    libraryfile,
+    source=sources,
+)
 
-Default(library)
+copy = env.InstallAs("{}/addons/{}/{}".format(projectdir, libname, file), library)
+
+default_args = [library, copy]
+Default(*default_args)
