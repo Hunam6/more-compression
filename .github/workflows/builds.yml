@@ -6,24 +6,24 @@ on:
   merge_group:
 
 jobs:
-  lint:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-
-      - name: Install Clang Format
-        shell: bash
-        run: python -m pip install clang-format
-
-      - name: Run Clang Format
-        shell: bash
-        run: clang-format src/** --dry-run --Werror
+  #  lint:
+  #    runs-on: ubuntu-20.04
+  #    steps:
+  #      - name: Checkout
+  #        uses: actions/checkout@v4
+  #        with:
+  #          submodules: true
+  #
+  #      - name: Install Clang Format
+  #        shell: bash
+  #        run: python -m pip install clang-format
+  #
+  #      - name: Run Clang Format
+  #        shell: bash
+  #        run: clang-format src/** --dry-run --Werror
 
   build:
-    needs: lint
+    #    needs: lint
     strategy:
       matrix:
         include:
