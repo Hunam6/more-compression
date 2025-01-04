@@ -57,7 +57,7 @@ library = env.SharedLibrary(
     source=sources,
 )
 
-copy = env.InstallAs("{}/addons/{}/{}".format(projectdir, libname, file), library)
+copy = env.InstallAs("{}/addons/{}/bin/{}".format(projectdir, libname, file), library)
 
 default_args = [library, copy]
 Default(*default_args)
