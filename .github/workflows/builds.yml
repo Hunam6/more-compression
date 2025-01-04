@@ -16,11 +16,6 @@ jobs:
             target-type: template_debug
             os: ubuntu-20.04
 
-          - platform: linux
-            arch: arm64
-            target-type: template_debug
-            os: ubuntu-20.04
-
           - platform: windows
             arch: x86_32
             target-type: template_debug
@@ -69,11 +64,6 @@ jobs:
           # Release templates
           - platform: linux
             arch: x86_64
-            target-type: template_release
-            os: ubuntu-20.04
-
-          - platform: linux
-            arch: arm64
             target-type: template_release
             os: ubuntu-20.04
 
