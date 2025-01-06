@@ -1,6 +1,10 @@
-# More Compression
+<img src="https://i.ibb.co/N94wtsn/icon-park-solid-compression.png" alt="More Compression logo" width="100" height="100" align="left" />
+
+### *More Compression*
 
 Adds more compression formats to Godot Engine.
+
+---
 
 ### Supported formats
 
