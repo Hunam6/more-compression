@@ -161,13 +161,13 @@ jobs:
 
       - name: Setup directory
         run: |
-          mkdir -p ${{ github.workspace }}/to-upload/addons/root/$repo_name
-          mv ${{ github.workspace }}/demo/addons/$repo_name/${repo_name}.gdextension ${{ github.workspace }}/to-upload/addons/root/$repo_name
+          mkdir -p ${{ github.workspace }}/to-upload/root/addons/$repo_name
+          mv ${{ github.workspace }}/demo/addons/$repo_name/${repo_name}.gdextension ${{ github.workspace }}/to-upload/root/addons/$repo_name
 
       - name: Download build files
         uses: actions/download-artifact@v4
         with:
-          path: ${{ github.workspace }}/to-upload/addons/root/${{ env.repo_name }}/bin
+          path: ${{ github.workspace }}/to-upload/root/addons/${{ env.repo_name }}/bin
           merge-multiple: true
 
       - name: Delete build files
