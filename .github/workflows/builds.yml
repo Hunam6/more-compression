@@ -10,7 +10,7 @@ jobs:
           - platform: linux
             arch: x86_64
             target-type: template_debug
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: windows
             arch: x86_32
@@ -30,22 +30,22 @@ jobs:
           - platform: android
             arch: arm64
             target-type: template_debug
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: android
             arch: arm32
             target-type: template_debug
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: android
             arch: x86_64
             target-type: template_debug
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: android
             arch: x86_32
             target-type: template_debug
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: ios
             arch: arm64
@@ -55,13 +55,13 @@ jobs:
           - platform: web
             arch: wasm32
             target-type: template_debug
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           # Release templates
           - platform: linux
             arch: x86_64
             target-type: template_release
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: windows
             arch: x86_32
@@ -81,22 +81,22 @@ jobs:
           - platform: android
             arch: arm64
             target-type: template_release
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: android
             arch: arm32
             target-type: template_release
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: android
             arch: x86_64
             target-type: template_release
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: android
             arch: x86_32
             target-type: template_release
-            os: ubuntu-20.04
+            os: ubuntu-latest
 
           - platform: ios
             arch: arm64
@@ -106,7 +106,7 @@ jobs:
           - platform: web
             arch: wasm32
             target-type: template_release
-            os: ubuntu-20.04
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -148,7 +148,7 @@ jobs:
           path: ${{ github.workspace }}/bin/*
 
   merge:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Checkout
