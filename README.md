@@ -12,7 +12,7 @@ Adds more compression formats to Godot Engine.
 
 ### Misc
 
-*Made for **Godot 4.x**.*
+*Made for **Godot 4.1+**.*
 
 ### Credit
 
